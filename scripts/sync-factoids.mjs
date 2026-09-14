@@ -24,13 +24,14 @@ if (!dumpPath) {
 // taste -- anything removed from it will show up in the reference again on
 // the next run.
 const EXCLUDE = new Set([
-  'broken', 'calloutstyletest', 'can', 'cw', 'dnsmeme', 'dpp', 'embed',
-  'gamethreads', 'ibmmeme', 'jimss', 'jumpstartvid', 'kali', 'musketmeme',
-  'mwanalogy', 'name with space', 'nsfw', 'paste', 'pastespread', 'pat',
-  'ramvendor', 'read', 'reboot', 'rgbconnectors', 'sleep', 'sports',
-  'templateall', 'templatedesc', 'templatefields', 'templateimage',
-  'templatewiki', 'test', 'tldr', 'tuesday', 'usbc', 'ventoykey', 'virus',
-  'xp', 'notq', 'drivesize', 'dnsflush' /* keep real ones, remove test flags below */
+  'altman', 'broken', 'calloutstyletest', 'can', 'cw', 'dnsmeme', 'dpp',
+  'embed', 'gamethreads', 'gotobed', 'ibmmeme', 'jimss', 'jumpstartvid',
+  'kali', 'musketmeme', 'mwanalogy', 'name with space', 'nsfw', 'paste',
+  'pastespread', 'pat', 'ramvendor', 'read', 'reboot', 'rgbconnectors',
+  'sports', 'templateall', 'templatedesc', 'templatefields',
+  'templateimage', 'templatewiki', 'test', 'tldr', 'tuesday', 'usbc',
+  'ventoykey', 'virus', 'xp', 'notq', 'drivesize',
+  'dnsflush' /* keep real ones, remove test flags below */
 ]);
 // dnsflush is real -- remove the accidental include above
 EXCLUDE.delete('dnsflush');
