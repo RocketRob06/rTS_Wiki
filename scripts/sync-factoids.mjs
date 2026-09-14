@@ -12,6 +12,7 @@ import path from 'node:path';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const COMPONENT_PATH = path.join(__dirname, '..', 'src', 'components', 'FactoidReference.astro');
+const PAGE_PATH = path.join(__dirname, '..', 'src', 'content', 'docs', 'factoids', 'quick-reference.mdx');
 
 const dumpPath = process.argv[2];
 if (!dumpPath) {
@@ -99,6 +100,17 @@ const newArrayJson = JSON.stringify(merged);
 const newRaw = `const FACTOIDS = ${newArrayJson};`;
 const newComponentSrc = componentSrc.replace(oldRaw, newRaw);
 writeFileSync(COMPONENT_PATH, newComponentSrc, 'utf8');
+
+// Starlight's "Last updated" footer is driven by the *page* file's git date
+// (or a `lastUpdated` frontmatter override), not the component it imports.
+// Bump the override here so the footer reflects this sync instead of going
+// stale at whenever the page was first created.
+const today = new Date().toISOString().slice(0, 10);
+const pageSrc = readFileSync(PAGE_PATH, 'utf8');
+const bumpedPageSrc = /^lastUpdated: /m.test(pageSrc)
+  ? pageSrc.replace(/^lastUpdated: .*$/m, `lastUpdated: ${today}`)
+  : pageSrc.replace(/^---$/m, `---\nlastUpdated: ${today}`);
+writeFileSync(PAGE_PATH, bumpedPageSrc, 'utf8');
 
 console.log(`Total parsed: ${parsed.length}`);
 console.log(`Excluded (meme/template/test): ${excluded.length}`);
